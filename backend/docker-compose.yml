@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+
+  postgres:
+    image: postgres:16
+    container_name: scanbadge-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: scanbadge
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+
+  mqtt:
+    image: eclipse-mosquitto:2
+    container_name: scanbadge-mqtt
+    restart: always
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+
+
+volumes:
+  postgres_data:
