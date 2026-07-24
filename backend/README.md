@@ -18,3 +18,6 @@ Vérifier les conteneurs :  docker ps
 
 PostgreSQL est exécuté via Docker.
 
+# Swagger
+
+http://localhost:3000/api-docs/#/
