@@ -6,9 +6,9 @@ export class ChantiersRepository {
         return prisma.chantier.findMany();
     }
 
-    async findById(id : number) {
+    async findById(id : String) {
         return prisma.chantier.findUnique({
-            where : {id}
+            where : { id }
         });
     }
 
@@ -18,18 +18,18 @@ export class ChantiersRepository {
         });
     }
 
-    async update(id: number, data: any) {
+    async update(id: String, data: any) {
         return prisma.chantier.update({
-            where: {id},
+            where: { id },
             data
         })
     }
 
-    async delete(id:number) {
+    async delete(id: String) {
         return prisma.chantier.delete({
-            where: {id}
-        }
-        )
+            where: { id }
+        })
     }
+
 
 }

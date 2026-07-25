@@ -5,6 +5,7 @@ import { authMiddleware } from "../../middleware/auth.middleware";
 const router = Router();
 
 const controller = new ChantierController();
+
 router.use(authMiddleware);
 
 router.get("/", controller.getAll.bind(controller));

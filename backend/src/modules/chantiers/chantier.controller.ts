@@ -1,5 +1,6 @@
 import { ChantiersService } from './chantier.service';
 import { Request, Response } from "express";
+import { CreateChantierDTO } from './chantier.dto' 
 
 export class ChantierController {
  
@@ -7,8 +8,6 @@ export class ChantierController {
 
     async getAll(req:Request, res:Response) {
         try {
-                console.log("GET /chantiers appelé");
-
 
             const chantiers = await this.service.getAll();
             res.status(200).json(chantiers);
