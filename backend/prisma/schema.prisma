@@ -36,7 +36,6 @@ model Chantier {
   updateAt DateTime @updatedAt
 
   employes  Employe[]
-  pointages  Pointage[]
 
   @@map("chantier")
 
@@ -66,10 +65,8 @@ model Pointage {
   id String @id @default(uuid())
 
   employeId String
-  chantierId String 
 
   employe Employe @relation(fields: [employeId], references: [id])
-  chantier Chantier @relation(fields: [chantierId], references: [id])
 
   latitude      Float?
   longitude     Float?
