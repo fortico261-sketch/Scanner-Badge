@@ -1,10 +1,10 @@
-import { ChantiersRepository } from "./chantier.repository";
 import { CreateChantierDTO, UpdateChantierDTO } from "./chantier.dto";
-
+import type { LocationPoint } from "../pointages/pointage.dto";
+import { calculateDistance } from "../../utils/formule.util";
+import { ChantiersRepository } from "./chantier.repository";
 
 export class ChantiersService {
-
-    private repository = new ChantiersRepository();
+    constructor(private readonly repository: ChantiersRepository) {}
 
     async getAll() {
         return this.repository.findAll();

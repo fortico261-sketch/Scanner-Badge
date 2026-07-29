@@ -1,9 +1,13 @@
-import { EmployeRepository }  from './employe.repository';
-import { CreateEmployeDTO, UpdateEmployeDTO } from './employe.dto';
+import { EmployeRepository } from "./employe.repository";
+import { CreateEmployeDTO, UpdateEmployeDTO } from "./employe.dto";
+import type { LocationPoint } from "../pointages/pointage.dto";
+import type { ChantiersService } from "../chantiers/chantier.service";
 
 export class EmployeService {
-
-    private repository = new EmployeRepository();
+    constructor(
+        private repository: EmployeRepository,
+        private chantiersService: ChantiersService,
+    ) {}
 
     async getAll() {
         return this.repository.findAll();

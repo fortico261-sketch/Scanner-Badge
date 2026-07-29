@@ -3,8 +3,7 @@ import { EmployeService } from "./employe.service";
 import { Request, Response } from "express";
 
 export class EmployeController {
-
-    private service = new EmployeService();
+    constructor(private readonly service: EmployeService) {}
 
     async getAll(req: Request, res: Response) {
         try {
@@ -39,7 +38,7 @@ export class EmployeController {
             if (employeExiste) {
                 return res.status(409).json("badgeId existe");
             }
-            
+
             const employe = await this.service.create(data);
 
             res.status(201).json({ message: "creation emplloye reussi", employe });
@@ -48,7 +47,7 @@ export class EmployeController {
 
             res.status(500).json({ message: "Impossible de creer un employer", error });
         }
-    }    
+    }
 
     async update(req: Request, res: Response) {
         try {
@@ -58,7 +57,7 @@ export class EmployeController {
         } catch (error) {
             res.status(500).json({ message: "Impossible de mettre a jour employe", error });
         }
-    }    
+    }
 
     async delete(req: Request, res: Response) {
         try {

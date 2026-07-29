@@ -3,13 +3,8 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 export class AuthService {
-    private repository : AuthRepository;
+    constructor(private readonly repository: AuthRepository) {}
 
-    constructor() {
-        this.repository = new AuthRepository();
-    }
-
-    
     async register(data: { nom: String; email: String; password: String }) {
         const existingUser = await this.repository.findUserByEmail(data.email);
 

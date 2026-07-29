@@ -3,7 +3,8 @@ import { Request, Response } from "express";
 import { CreateChantierDTO } from "./chantier.dto";
 
 export class ChantierController {
- 
+    constructor(private readonly service: ChantiersService) {}
+
     async getAll(req: Request, res: Response) {
         try {
             const chantiers = await this.service.getAll();
@@ -46,7 +47,7 @@ export class ChantierController {
     async update(req: Request, res: Response) {
         try {
             const chantier = await this.service.update(req.params.id, req.body);
-        
+
             res.status(200).json(chantier);
         } catch (error) {
             res.status(500).json({ message: "Impossible de mettre a jour le chantier", error });
