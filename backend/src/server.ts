@@ -1,4 +1,6 @@
 import "dotenv/config";
+import "./mqtt";
+
 const app = require("./app").default || require("./app");
 
 const PORT = 3000;

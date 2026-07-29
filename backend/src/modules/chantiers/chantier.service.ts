@@ -26,4 +26,17 @@ export class ChantiersService {
         return this.repository.delete(id);
     }
 
+    async checkPointInsideChantierZone(chantierId: string, point: LocationPoint) {
+        const chantier = await this.getById(chantierId);
+        if (!chantier) {
+            throw new Error(`Chantier with ID ${chantierId} not found.`);
+        }
+
+        const distance = calculateDistance(point, {
+            latitude: chantier.latitude,
+            longitude: chantier.longitude,
+        });
+
+        return distance <= chantier.rayonToleranceM;
+    }
 }

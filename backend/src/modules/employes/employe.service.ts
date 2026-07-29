@@ -33,4 +33,14 @@ export class EmployeService {
         return this.repository.delete(id);
     }
 
+    async checkEmployeInsideChantierZone(badgeId: string, point: LocationPoint) {
+        const employe = await this.getBadgeId(badgeId);
+        if (!employe) throw Error("Employe not found with this badgeId");
+
+        const inside = await this.chantiersService.checkPointInsideChantierZone(
+            employe.chantierId,
+            point,
+        );
+        return { inside, employeId: employe.id };
+    }
 }
