@@ -1,6 +1,6 @@
 import { AuthRepository } from "./auth.repository";
-import  bcrypt  from "bcrypt"
-import  jwt from "jsonwebtoken"
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export class AuthService {
     private repository : AuthRepository;
@@ -10,53 +10,45 @@ export class AuthService {
     }
 
     
-    async register(data:{ nom: String, email:String, password:String }){
-
+    async register(data: { nom: String; email: String; password: String }) {
         const existingUser = await this.repository.findUserByEmail(data.email);
 
-        if(existingUser) {
-            throw new Error('utilisateur eiste deja')
+        if (existingUser) {
+            throw new Error("utilisateur eiste deja");
         }
 
-        const hashPassword = await bcrypt.hash(data.password,10)
+        const hashPassword = await bcrypt.hash(data.password, 10);
 
         const user = await this.repository.createUser({
-            nom : data.nom,
+            nom: data.nom,
             email: data.email,
-            password: hashPassword
-        })
+            password: hashPassword,
+        });
 
         return {
-            id : user.id,
+            id: user.id,
             nom: user.nom,
-            email: user.email
-        }
+            email: user.email,
+        };
     }
 
-
-    async login(data:{ email:String, password: String}) {
-
+    async login(data: { email: String; password: String }) {
         const user = await this.repository.findUserByEmail(data.email);
 
-        if(!user) {
-            throw new Error("utilisateur introuvable")
+        if (!user) {
+            throw new Error("utilisateur introuvable");
         }
 
         const passwordValid = await bcrypt.compare(data.password, user.password);
 
-        if(!passwordValid) {
-            throw new Error("mot de pass incorrect")
+        if (!passwordValid) {
+            throw new Error("mot de pass incorrect");
         }
 
-        const token = jwt.sign(
-            {id: user.id, email: user.email},
-            process.env.JWT_SECRET,
-            {expiresIn: "1d" }
-        );
+        const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, {
+            expiresIn: "1d",
+        });
 
-        return { token }
-
+        return { token };
     }
-
-
 }

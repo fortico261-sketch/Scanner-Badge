@@ -9,26 +9,24 @@ export class AuthController {
     }
 
     async register(req: Request, res: Response) {
-        try{
+        try {
             const user = await this.service.register(req.body);
-            res.status(200).json(user)
+            res.status(200).json(user);
         } catch (error) {
-            res.status(400).json({message: 'Erreur lors de la registration', error})
+            res.status(400).json({ message: "Erreur lors de la registration", error });
         }
     }
 
     async login(req: Request, res: Response) {
         try {
-
             const { email, password } = req.body;
 
             const result = await this.service.login({ email, password });
 
             res.status(200).json(result);
-
-        }catch (error : any) {
-            console.log(error)
-            res.status(400).json({message: 'Erreur lors de la connexion', error})
+        } catch (error: any) {
+            console.log(error);
+            res.status(400).json({ message: "Erreur lors de la connexion", error });
         }
     }
 }

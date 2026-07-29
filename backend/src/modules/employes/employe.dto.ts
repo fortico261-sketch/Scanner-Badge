@@ -14,5 +14,4 @@ export interface UpdateEmployeDTO {
     tauxHoraire?: number;
     volumeMensuelObligatoire?: number;
     chantierId?: String;
-
 }

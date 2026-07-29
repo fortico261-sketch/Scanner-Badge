@@ -5,7 +5,6 @@ export interface CreateChantierDTO {
     rayonToleranceM: number;
 }
 
-
 export interface UpdateChantierDTO {
     nom?: string;
     latitude?: number;

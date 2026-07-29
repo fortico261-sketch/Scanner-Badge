@@ -9,17 +9,16 @@ export class EmployeService {
         return this.repository.findAll();
     }
 
-    async getByid(id : String) {
+    async getByid(id: String) {
         return this.repository.findById(id);
     }
 
-    async getBadgeId(bageId: String) {
-        return this.repository.findBadgeId(bageId);
+    async getBadgeId(badgeId: string) {
+        return this.repository.findBadgeId(badgeId);
     }
 
     async create(data: CreateEmployeDTO) {
         return this.repository.create(data);
-
     }
 
     async update(id: String, data: UpdateEmployeDTO) {
