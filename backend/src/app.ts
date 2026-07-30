@@ -4,6 +4,7 @@ import chantiersRoutes from "./modules/chantiers/chantier.route";
 import employeRoutes from "./modules/employes/employe.route"
 import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
+import geoRoute from "./modules/geofencing/grofencing.route"
 
 const swaggerDocument = YAML.load("./swagger.yaml");
 
@@ -18,5 +19,6 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/auth", authRoutes);
 app.use("/chantiers", chantiersRoutes);
 app.use("/employe", employeRoutes)
+app.use("/geofencing",geoRoute )
 
 export default app;
