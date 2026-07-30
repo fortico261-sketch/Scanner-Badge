@@ -1,198 +1,197 @@
 openapi: 3.0.0
 
 info:
-  title: Scanner Badge API
-  version: 1.0.0
-  description: API de gestion des employés et chantiers
+    title: Scanner Badge API
+    version: 1.0.0
+    description: API de gestion des employés et chantiers
 
 servers:
-  - url: http://localhost:3000
+    - url: http://localhost:3000
 
 components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
+    securitySchemes:
+        bearerAuth:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
 
 paths:
+    /auth/register:
+        post:
+            tags:
+                - Auth
+            summary: Inscription
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                email:
+                                    type: string
+                                password:
+                                    type: string
+            responses:
+                "200":
+                    description: Utilisateur créé
 
-  /auth/register:
-    post:
-      tags:
-        - Auth
-      summary: Inscription
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                password:
-                  type: string
-      responses:
-        "200":
-          description: Utilisateur créé
+    /auth/login:
+        post:
+            tags:
+                - Auth
+            summary: Connexion
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                email:
+                                    type: string
+                                password:
+                                    type: string
+            responses:
+                "200":
+                    description: Connexion réussie
 
-  /auth/login:
-    post:
-      tags:
-        - Auth
-      summary: Connexion
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                password:
-                  type: string
-      responses:
-        "200":
-          description: Connexion réussie
+    /chantiers:
+        get:
+            tags:
+                - Chantiers
+            summary: Liste des chantiers
+            security:
+                - bearerAuth: []
+            responses:
+                "200":
+                    description: OK
 
-  /chantiers:
-    get:
-      tags:
-        - Chantiers
-      summary: Liste des chantiers
-      security:
-        - bearerAuth: []
-      responses:
-        "200":
-          description: OK
+        post:
+            tags:
+                - Chantiers
+            summary: Créer un chantier
+            security:
+                - bearerAuth: []
+            responses:
+                "201":
+                    description: Créé
 
-    post:
-      tags:
-        - Chantiers
-      summary: Créer un chantier
-      security:
-        - bearerAuth: []
-      responses:
-        "201":
-          description: Créé
+    /chantiers/{id}:
+        get:
+            tags:
+                - Chantiers
+            summary: Obtenir un chantier
+            security:
+                - bearerAuth: []
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                "200":
+                    description: OK
 
-  /chantiers/{id}:
-    get:
-      tags:
-        - Chantiers
-      summary: Obtenir un chantier
-      security:
-        - bearerAuth: []
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: OK
+        put:
+            tags:
+                - Chantiers
+            summary: Modifier un chantier
+            security:
+                - bearerAuth: []
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                "200":
+                    description: Modifié
 
-    put:
-      tags:
-        - Chantiers
-      summary: Modifier un chantier
-      security:
-        - bearerAuth: []
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Modifié
+        delete:
+            tags:
+                - Chantiers
+            summary: Supprimer un chantier
+            security:
+                - bearerAuth: []
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                "204":
+                    description: Supprimé
 
-    delete:
-      tags:
-        - Chantiers
-      summary: Supprimer un chantier
-      security:
-        - bearerAuth: []
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "204":
-          description: Supprimé
+    /employe:
+        get:
+            tags:
+                - Employes
+            summary: Liste des employés
+            security:
+                - bearerAuth: []
+            responses:
+                "200":
+                    description: OK
 
-  /employe:
-    get:
-      tags:
-        - Employes
-      summary: Liste des employés
-      security:
-        - bearerAuth: []
-      responses:
-        "200":
-          description: OK
+        post:
+            tags:
+                - Employes
+            summary: Créer un employé
+            security:
+                - bearerAuth: []
+            responses:
+                "201":
+                    description: Créé
 
-    post:
-      tags:
-        - Employes
-      summary: Créer un employé
-      security:
-        - bearerAuth: []
-      responses:
-        "201":
-          description: Créé
+    /employe/{id}:
+        get:
+            tags:
+                - Employes
+            summary: Obtenir un employé
+            security:
+                - bearerAuth: []
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                "200":
+                    description: OK
 
-  /employe/{id}:
-    get:
-      tags:
-        - Employes
-      summary: Obtenir un employé
-      security:
-        - bearerAuth: []
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: OK
+        put:
+            tags:
+                - Employes
+            summary: Modifier un employé
+            security:
+                - bearerAuth: []
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                "200":
+                    description: Modifié
 
-    put:
-      tags:
-        - Employes
-      summary: Modifier un employé
-      security:
-        - bearerAuth: []
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Modifié
-
-    delete:
-      tags:
-        - Employes
-      summary: Supprimer un employé
-      security:
-        - bearerAuth: []
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Supprimé
+        delete:
+            tags:
+                - Employes
+            summary: Supprimer un employé
+            security:
+                - bearerAuth: []
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                "200":
+                    description: Supprimé
