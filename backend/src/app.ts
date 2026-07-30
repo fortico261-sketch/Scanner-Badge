@@ -2,6 +2,7 @@ import express from "express";
 import authRoutes from "./modules/auth/auth.route";
 import chantiersRoutes from "./modules/chantiers/chantier.route";
 import employeRoutes from "./modules/employes/employe.route";
+import pointageRoutes from "./modules/pointages/pointage.route";
 import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
 
@@ -16,5 +17,6 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/auth", authRoutes);
 app.use("/chantiers", chantiersRoutes);
 app.use("/employe", employeRoutes);
+app.use("/pointage", pointageRoutes);
 
 export default app;

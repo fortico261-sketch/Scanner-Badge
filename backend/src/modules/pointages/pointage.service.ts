@@ -34,4 +34,12 @@ export class PointagesService {
             console.error("Erreur pendant la sauvegarde du pointage:", error);
         }
     }
+
+    async fetchAll() {
+        return await this.repository.findAll();
+    }
+
+    async getById(id: string) {
+        return await this.repository.findById(id);
+    }
 }

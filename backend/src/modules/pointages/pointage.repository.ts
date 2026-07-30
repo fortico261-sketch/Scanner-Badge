@@ -14,4 +14,16 @@ export class PointagesRepository {
             orderBy: { timestamp: "desc" },
         });
     }
+
+    async findAll() {
+        return await prisma.pointage.findMany({
+            orderBy: { timestamp: "desc" },
+        });
+    }
+
+    async findById(id: string) {
+        return await prisma.pointage.findUnique({
+            where: { id },
+        });
+    }
 }
