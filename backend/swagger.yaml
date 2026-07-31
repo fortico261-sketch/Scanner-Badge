@@ -196,3 +196,107 @@ paths:
       responses:
         "200":
           description: Supprimé
+  /geofencing/check:
+    post:
+      tags:
+        - Geofencing
+      summary: Vérifier si un employé est dans la zone du chantier
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - employeeLat
+                - employeeLon
+                - chantierLat
+                - chantierLon
+                - radius
+              properties:
+                employeeLat:
+                  type: number
+                  example: 48.8566
+                employeeLon:
+                  type: number
+                  example: 2.3522
+                chantierLat:
+                  type: number
+                  example: 48.8567
+                chantierLon:
+                  type: number
+                  example: 2.3523
+                radius:
+                  type: number
+                  example: 100
+      responses:
+        "200":
+          description: Résultat du contrôle géographique
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  distance:
+                    type: number
+                    example: 13.3
+                  inside:
+                    type: boolean
+                    example: true
+
+  /badges/associate:
+    post:
+      tags:
+        - Badges
+      summary: Associer un badge RFID à un employé
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - uid
+                - employeId
+              properties:
+                uid:
+                  type: string
+                  example: A1B2C3D4
+                employeId:
+                  type: string
+                  example: 8790f88e-38c9-40ea-b648-09eafe46d86e
+      responses:
+        "201":
+          description: Badge associé avec succès
+        "400":
+          description: Badge déjà associé ou employé possède déjà un badge
+
+  /badges/{uid}/employe:
+    get:
+      tags:
+        - Badges
+      summary: Récupérer l'employé associé à un badge RFID
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: UID du badge RFID
+          schema:
+            type: string
+            example: A1B2C3D4
+      responses:
+        "200":
+          description: Employé trouvé
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  nom:
+                    type: string
+                  prenom:
+                    type: string
+        "404":
+          description: Badge introuvable          
