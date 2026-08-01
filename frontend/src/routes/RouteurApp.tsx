@@ -7,9 +7,6 @@ import AdminDashboard from '../features/admin/AdminDashboard';
 import RouteProtegee from './RouteProtegee';
 import TableauEmployes from '../features/employes/components/TableauEmployes';
 import TableauChantiers from '../features/chantiers/components/TableauChantiers';
-import ListePointages from '../features/pointages/components/ListePointages';
-import ListePaie from '../features/paie/components/ListePaie';
-import ListeConges from '../features/conges/components/ListeConges';
 
 export default function RouteurApp() {
   return (
@@ -43,30 +40,6 @@ export default function RouteurApp() {
           element={
             <RouteProtegee>
               <TableauChantiers />
-            </RouteProtegee>
-          }
-        />
-        <Route
-          path="/pointages"
-          element={
-            <RouteProtegee>
-              <ListePointages />
-            </RouteProtegee>
-          }
-        />
-        <Route
-          path="/paie"
-          element={
-            <RouteProtegee>
-              <ListePaie />
-            </RouteProtegee>
-          }
-        />
-        <Route
-          path="/conges"
-          element={
-            <RouteProtegee>
-              <ListeConges />
             </RouteProtegee>
           }
         />

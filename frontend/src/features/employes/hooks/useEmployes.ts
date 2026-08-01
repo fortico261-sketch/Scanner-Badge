@@ -21,11 +21,11 @@ export default function useEmployes() {
 
 	async function create(emp: Employee) {
 		const res = await employesApi.create(emp);
-		setEmployes(prev => [...prev, res]);
+		setEmployes(prev => [...prev, res.employe]);
 		employesApi.list().then(data => {
 			setEmployes(data || []);
 		}).catch(() => {});
-		return res;
+		return res.employe;
 	}
 
 	async function update(id: string | number, emp: Employee) {

@@ -7,18 +7,12 @@ import Sidebar from '../../shared/components/Sidebar';
 type Stats = {
   employes: number;
   chantiers: number;
-  pointages: number;
-  paie: number;
-  conges: number;
 };
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState<Stats>({
     employes: 0,
     chantiers: 2,
-    pointages: 9,
-    paie: 500,
-    conges: 5,
   });
   const [loading, setLoading] = useState(true);
 
@@ -29,17 +23,11 @@ export default function AdminDashboard() {
         setStats({
           employes: employes.length,
           chantiers: 2,
-          pointages: 0,
-          paie: 0,
-          conges: 0,
         });
       } catch {
         setStats({
           employes: 0,
           chantiers: 2,
-          pointages: 0,
-          paie: 0,
-          conges: 0,
         });
       } finally {
         setLoading(false);
@@ -51,9 +39,6 @@ export default function AdminDashboard() {
   const statCards = [
     { label: 'Employés', value: stats.employes, color: 'text-blue-400' },
     { label: 'Chantiers', value: stats.chantiers, color: 'text-blue-400' },
-    { label: 'Pointages', value: stats.pointages, color: 'text-amber-400' },
-    { label: 'Paie', value: stats.paie, color: 'text-purple-400' },
-    { label: 'Congés', value: stats.conges, color: 'text-rose-400' },
   ];
 
   const chartData = statCards.map((card) => ({ label: card.label, value: card.value }));
@@ -68,10 +53,10 @@ export default function AdminDashboard() {
             Tableau de bord administrateur
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-slate-600">
-            Gérez les employés, les chantiers, les pointages, la paie et les congés depuis un espace unique.
+            Gérez les employés et les chantiers depuis un espace unique.
           </p>
 
-          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+          <div className="mt-8 grid gap-4 md:grid-cols-2">
             {statCards.map((card) => (
               <div
                 key={card.label}

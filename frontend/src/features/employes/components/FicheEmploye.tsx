@@ -10,7 +10,7 @@ export default function FicheEmploye({ employe }: Props) {
 			<div>Badge ID: {employe.badgeId}</div>
 			<div>Taux Horaire: {employe.tauxHoraire}</div>
 			<div>Volume Mensuel: {employe.volumeMensuelObligatoire}</div>
-			<div>Nom Chantier: {employe.chantiernom}</div>
+			<div>Chantier ID: {employe.chantierId}</div>
 		</div>
 	);
 }

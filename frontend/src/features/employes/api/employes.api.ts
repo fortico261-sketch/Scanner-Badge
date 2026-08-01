@@ -17,7 +17,7 @@ export const employesApi = {
 	get: async (id: string | number): Promise<Employee> => {
 		return client.get(`/employes/${id}`); // <-- et ici
 	},
-	create: async (payload: Employee): Promise<Employee> => {
+	create: async (payload: Employee): Promise<{ message: string; employe: Employee }> => {
 		return client.post('/employes', payload); // <-- et ici
 	},
 	update: async (id: string | number, payload: Employee): Promise<Employee> => {
