@@ -8,9 +8,9 @@
 	--text: #f1f5f9;
 	--text-h: #ffffff;
 	--border: #ffffff;
-	--accent: #34d399;
-	--accent-bg: rgba(52, 211, 153, 0.1);
-	--accent-border: rgba(52, 211, 153, 0.6);
+	--accent: #3b82f6;
+	--accent-bg: rgba(59, 130, 246, 0.1);
+	--accent-border: rgba(59, 130, 246, 0.6);
 	--social-bg: #1e3a8a;
 	--shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
@@ -58,7 +58,7 @@ button {
 	align-items: center;
 	justify-content: center;
 	min-height: 100vh;
-	background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+	background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
 	padding: 20px;
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
@@ -74,7 +74,7 @@ button {
 }
 
 .login-hero {
-	background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+	background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
 	padding: 32px 24px;
 	text-align: center;
 	color: white;
@@ -121,9 +121,9 @@ button {
 }
 
 .login-tabs .tab.active {
-	color: #059669;
-	border-bottom-color: #059669;
-	background: rgba(5, 150, 105, 0.08);
+	color: #2563eb;
+	border-bottom-color: #2563eb;
+	background: rgba(37, 99, 235, 0.08);
 }
 
 .login-card {
@@ -185,8 +185,8 @@ button {
 }
 
 .input-icon:focus-within {
-	border-color: #059669;
-	box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+	border-color: #2563eb;
+	box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
 .input-icon input {
@@ -223,7 +223,7 @@ button {
 	width: 18px;
 	height: 18px;
 	cursor: pointer;
-	accent-color: #059669;
+	accent-color: #2563eb;
 }
 
 .error-message {
@@ -249,14 +249,14 @@ button {
 }
 
 .btn-primary {
-	background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+	background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
 	color: white;
-	box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+	box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
 }
 
 .btn-primary:hover {
 	transform: translateY(-2px);
-	box-shadow: 0 6px 20px rgba(5, 150, 105, 0.35);
+	box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
 }
 
 .btn-primary:active {
@@ -276,7 +276,7 @@ button {
 	flex: 1;
 	text-align: center;
 	font-size: 13px;
-	color: #059669;
+	color: #2563eb;
 	text-decoration: none;
 	font-weight: 600;
 	transition: color 0.3s ease;
@@ -284,7 +284,7 @@ button {
 }
 
 .login-footer a:hover {
-	color: #047857;
+	color: #1d4ed8;
 	text-decoration: underline;
 }
 
@@ -296,7 +296,7 @@ table { border-collapse: collapse; width: 100%; }
 th, td { text-align: left; padding: 8px; }
 thead { background: var(--bg); }
 .text-red-600 { color: #dc2626; }
-.text-green-600 { color: #16a34a; }
+.text-green-600 { color: #2563eb; }
 
 /* Dashboard styles */
 .dashboard-hero {

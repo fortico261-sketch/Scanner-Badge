@@ -12,6 +12,7 @@ function getToken() {
 
 async function request(path: string, opts: RequestOptions = {}) {
   const url = `${BASE_URL}${path}`;
+  console.log("[client-http] BASE_URL:", BASE_URL, "url:", url);
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
     ...(opts.headers || {}),

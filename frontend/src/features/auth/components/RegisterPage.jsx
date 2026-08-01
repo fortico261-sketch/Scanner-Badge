@@ -1,60 +1,57 @@
 import React, { useEffect, useState } from 'react';
-import { Navigate, useNavigate, Link } from 'react-router-dom';
-import { getCurrentUser, login } from '../api/auth.api';
+import { Link, useNavigate } from 'react-router-dom';
+import { register } from '../api/auth.api';
 
 const TAB_CONFIG = {
   admin: {
     label: 'Administrateur',
-    subtitle: 'Espace administration',
+    subtitle: 'Créer un compte administrateur',
     placeholder: 'admin@example.com',
   },
   employee: {
     label: 'Employé',
-    subtitle: 'Espace Employé',
+    subtitle: 'Créer un compte employé',
     placeholder: 'employe@example.com',
   },
 };
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const [tab, setTab] = useState('admin');
-  const [email, setEmail] = useState('admin@example.com');
+  const [nom, setNom] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
-  const [redirectToDashboard, setRedirectToDashboard] = useState(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const user = getCurrentUser();
-    if (user?.role === 'admin') {
-      setRedirectToDashboard(false);
-    }
-  }, []);
 
   function handleTabChange(newTab) {
     setTab(newTab);
     setError(null);
-    setEmail(newTab === 'admin' ? 'admin@example.com' : '');
+    setEmail('');
     setPassword('');
+    setConfirmPassword('');
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
     setError(null);
 
-    try {
-      const user = await login({ email: email.trim(), password: password.trim() }, tab);
-      if (user.role === 'admin') {
-        navigate('/admin');
-      } else if (user.role === 'employee') {
-        navigate('/employes');
-      }
-    } catch (err) {
-      setError(err?.message || 'Email ou mot de passe invalide');
+    if (!nom.trim() || !email.trim() || !password) {
+      setError('Veuillez remplir tous les champs');
+      return;
     }
-  }
 
-  if (redirectToDashboard) {
-    return <Navigate to="/admin" replace />;
+    if (password !== confirmPassword) {
+      setError('Les mots de passe ne correspondent pas');
+      return;
+    }
+
+    try {
+      await register({ nom: nom.trim(), email: email.trim(), password });
+      navigate('/login');
+    } catch (err) {
+      setError(err?.message || 'Erreur lors de la création du compte');
+    }
   }
 
   const current = TAB_CONFIG[tab];
@@ -63,8 +60,7 @@ export default function LoginPage() {
     <div className="login-screen">
       <div className="login-panel">
         <header className="login-hero">
-          <h1>Connexion</h1>
-          
+          <h1>Inscription</h1>
         </header>
 
         <div className="login-tabs">
@@ -85,6 +81,18 @@ export default function LoginPage() {
           </div>
 
           <form className="login-form" onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label>Nom complet</label>
+              <div className="input-icon">
+                <span>👤</span>
+                <input
+                  type="text"
+                  placeholder="Jean Dupont"
+                  value={nom}
+                  onChange={e => setNom(e.target.value)}
+                />
+              </div>
+            </div>
             <div className="form-group">
               <label>Adresse Email</label>
               <div className="input-icon">
@@ -109,19 +117,25 @@ export default function LoginPage() {
                 />
               </div>
             </div>
-            <div className="form-helpers">
-              <label className="checkbox-label">
-                <input type="checkbox" /> Se souvenir de moi
-              </label>
+            <div className="form-group">
+              <label>Confirmer le mot de passe</label>
+              <div className="input-icon">
+                <span>🔒</span>
+                <input
+                  type="password"
+                  placeholder="••••••••"
+                  value={confirmPassword}
+                  onChange={e => setConfirmPassword(e.target.value)}
+                />
+              </div>
             </div>
             {error && <div className="error-message">{error}</div>}
             <button type="submit" className="bg-blue-600 text-white btn-full">
-              Se connecter
+              Créer un compte
             </button>
           </form>
           <div className="login-footer">
-            <Link to="/register">Créer un compte</Link>
-            <a href="#">Mot de passe oublié ?</a>
+            <Link to="/login">Déjà un compte ? Se connecter</Link>
           </div>
         </div>
       </div>

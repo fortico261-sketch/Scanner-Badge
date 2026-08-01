@@ -1,11 +1,15 @@
 ﻿import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from '../features/auth/components/LoginPage';
+import RegisterPage from '../features/auth/components/RegisterPage';
 import Home from '../features/home/Home';
 import AdminDashboard from '../features/admin/AdminDashboard';
 import RouteProtegee from './RouteProtegee';
 import TableauEmployes from '../features/employes/components/TableauEmployes';
 import TableauChantiers from '../features/chantiers/components/TableauChantiers';
+import ListePointages from '../features/pointages/components/ListePointages';
+import ListePaie from '../features/paie/components/ListePaie';
+import ListeConges from '../features/conges/components/ListeConges';
 
 export default function RouteurApp() {
   return (
@@ -17,6 +21,7 @@ export default function RouteurApp() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/login/admin" element={<Navigate to="/login" replace />} />
         <Route path="/login/employee" element={<Navigate to="/login" replace />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route
           path="/admin"
           element={
@@ -38,6 +43,30 @@ export default function RouteurApp() {
           element={
             <RouteProtegee>
               <TableauChantiers />
+            </RouteProtegee>
+          }
+        />
+        <Route
+          path="/pointages"
+          element={
+            <RouteProtegee>
+              <ListePointages />
+            </RouteProtegee>
+          }
+        />
+        <Route
+          path="/paie"
+          element={
+            <RouteProtegee>
+              <ListePaie />
+            </RouteProtegee>
+          }
+        />
+        <Route
+          path="/conges"
+          element={
+            <RouteProtegee>
+              <ListeConges />
             </RouteProtegee>
           }
         />

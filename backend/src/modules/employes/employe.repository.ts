@@ -6,13 +6,13 @@ export class EmployeRepository {
         return prisma.employe.findMany();
     }
 
-    async findById(id: String) {
+    async findById(id: string) {
         return prisma.employe.findUnique({
             where: { id }
         })
     }
     
-    async findBadgeId(badgeId: String) {
+    async findBadgeId(badgeId: string) {
         return prisma.employe.findUnique({
             where: { badgeId }
         })
@@ -24,7 +24,7 @@ export class EmployeRepository {
         });
     }
 
-    async update(id: String, data: any) {
+    async update(id: string, data: any) {
         return prisma.employe.update({
             where: { id },
             data
@@ -32,7 +32,7 @@ export class EmployeRepository {
 
     }
 
-    async delete(id : String) {
+    async delete(id : string) {
         return prisma.employe.delete({
             where: { id }
         })

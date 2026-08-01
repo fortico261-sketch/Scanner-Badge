@@ -1,6 +1,6 @@
-import type employeDto = require("./employe.dto");
-import { EmployeService } from "./employe.service"
 import { Request, Response } from "express";
+import { EmployeService } from "./employe.service"
+import { CreateEmployeDTO, UpdateEmployeDTO } from './employe.dto';
 
 export class EmployeController {
 
@@ -22,7 +22,7 @@ export class EmployeController {
     async getById(req: Request, res: Response) {
         try {
 
-            const id = req.params.id;
+            const id = req.params.id as string;
             const employe = await this.service.getByid(id);
 
             if(!employe) {
@@ -43,7 +43,7 @@ export class EmployeController {
     async create(req: Request, res: Response) {
         try {
 
-            const data : employeDto.CreateEmployeDTO= req.body;
+            const data : CreateEmployeDTO = req.body;
             const employeExiste = await this.service.getBadgeId(data.badgeId)
 
             if (employeExiste) {
@@ -65,7 +65,7 @@ export class EmployeController {
     async update(req: Request, res: Response) {
         try {
             
-            const employe = await this.service.update(req.params.id, req.body);
+            const employe = await this.service.update(req.params.id as string, req.body);
 
             res.status(200).json(employe);
 
@@ -79,7 +79,7 @@ export class EmployeController {
     async delete(req: Request, res: Response) {
         try {
 
-            const employe = await this.service.delete(req.params.id);
+            const employe =             await this.service.delete(req.params.id as string);
 
             res.status(200).json({message:"Suppression employe reussi",employe});
 

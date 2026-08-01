@@ -7,8 +7,10 @@ export default function FicheEmploye({ employe }: Props) {
 	return (
 		<div className="p-2 border rounded">
 			<h4 className="font-bold">{employe.nom} {employe.prenom}</h4>
-			<div>Email: {employe.email}</div>
-			<div>Poste: {employe.poste}</div>
+			<div>Badge ID: {employe.badgeId}</div>
+			<div>Taux Horaire: {employe.tauxHoraire}</div>
+			<div>Volume Mensuel: {employe.volumeMensuelObligatoire}</div>
+			<div>Nom Chantier: {employe.chantiernom}</div>
 		</div>
 	);
 }

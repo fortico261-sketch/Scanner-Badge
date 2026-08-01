@@ -23,7 +23,7 @@ export class ChantierController {
     async getById(req:Request, res:Response) {
         try{
 
-            const id = req.params.id;
+            const id = req.params.id as string;
             const chantier = await this.service.getById(id);
 
             if(!chantier) {
@@ -59,7 +59,7 @@ export class ChantierController {
     async update(req: Request, res: Response) {
         try{
 
-            const chantier = await this.service.update(req.params.id, req.body);
+            const chantier = await this.service.update(req.params.id as string, req.body);
         
             res.status(200).json(chantier);
 
@@ -73,7 +73,7 @@ export class ChantierController {
     async delete(req:Request, res:Response) {
         try{
 
-            await this.service.delete(req.params.id);
+            await this.service.delete(req.params.id as string);
             res.status(204).send();
 
         }catch(error) {

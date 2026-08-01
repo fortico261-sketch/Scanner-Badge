@@ -22,6 +22,9 @@ export default function useEmployes() {
 	async function create(emp: Employee) {
 		const res = await employesApi.create(emp);
 		setEmployes(prev => [...prev, res]);
+		employesApi.list().then(data => {
+			setEmployes(data || []);
+		}).catch(() => {});
 		return res;
 	}
 

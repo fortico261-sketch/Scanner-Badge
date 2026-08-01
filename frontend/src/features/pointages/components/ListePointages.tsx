@@ -1,9 +1,9 @@
 import React from 'react';
 import Sidebar from '../../../shared/components/Sidebar';
-import useConges from '../hooks/useConges';
+import usePointages from '../hooks/usePointages';
 
-export default function ListeConges() {
-	const { conges, loading, error } = useConges();
+export default function ListePointages() {
+	const { pointages, loading, error } = usePointages();
 
 	return (
 		<div className="min-h-screen bg-[#eef2ff] px-4 py-6 text-slate-900 md:px-6 lg:px-8">
@@ -12,7 +12,7 @@ export default function ListeConges() {
 				<main className="flex-1 lg:ml-80">
 					<div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-xl">
 						<p className="text-sm font-semibold uppercase tracking-[0.3em] text-emerald-600">Dashboard</p>
-						<h2 className="mt-2 text-2xl font-semibold text-slate-900">Congés</h2>
+						<h2 className="mt-2 text-2xl font-semibold text-slate-900">Pointages</h2>
 					</div>
 
 					{error && (
@@ -30,26 +30,26 @@ export default function ListeConges() {
 									<thead className="bg-slate-100">
 										<tr>
 											<th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">Employé ID</th>
-											<th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">Type</th>
-											<th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">Date Début</th>
-											<th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">Date Fin</th>
-											<th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">Statut</th>
+											<th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">Chantier ID</th>
+											<th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">Date</th>
+											<th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">Heure Entrée</th>
+											<th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">Heure Sortie</th>
 										</tr>
 									</thead>
 									<tbody className="divide-y divide-slate-200">
-										{conges.length === 0 ? (
+										{pointages.length === 0 ? (
 											<tr>
 												<td colSpan={5} className="px-4 py-8 text-center text-sm text-slate-500">
-													Aucun congé enregistré.
+													Aucun pointage enregistré.
 												</td>
 											</tr>
-										) : conges.map(c => (
-											<tr key={String(c.id)} className="hover:bg-slate-50">
-												<td className="px-4 py-3 text-sm text-slate-700">{c.employeId}</td>
-												<td className="px-4 py-3 text-sm text-slate-500">{c.type}</td>
-												<td className="px-4 py-3 text-sm text-slate-500">{c.dateDebut}</td>
-												<td className="px-4 py-3 text-sm text-slate-500">{c.dateFin}</td>
-												<td className="px-4 py-3 text-sm text-slate-500">{c.statut}</td>
+										) : pointages.map(p => (
+											<tr key={String(p.id)} className="hover:bg-slate-50">
+												<td className="px-4 py-3 text-sm text-slate-700">{p.employeId}</td>
+												<td className="px-4 py-3 text-sm text-slate-500">{p.chantierId}</td>
+												<td className="px-4 py-3 text-sm text-slate-500">{p.date}</td>
+												<td className="px-4 py-3 text-sm text-slate-500">{p.heureEntree}</td>
+												<td className="px-4 py-3 text-sm text-slate-500">{p.heureSortie || '—'}</td>
 											</tr>
 										))}
 									</tbody>

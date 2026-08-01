@@ -2,7 +2,7 @@ import { prisma } from "../../database/prisma.service"
 
 export class AuthRepository {
 
-    async findUserByEmail(email: String) {
+    async findUserByEmail(email: string) {
         return prisma.user.findUnique({
             where: { email }
         })

@@ -1,9 +1,11 @@
 import { EmployeRepository }  from './employe.repository';
+import { ChantiersService } from '../chantiers/chantier.service';
 import { CreateEmployeDTO, UpdateEmployeDTO } from './employe.dto';
 
 export class EmployeService {
 
     private repository = new EmployeRepository();
+    private chantierService = new ChantiersService();
 
     async getAll() {
         return this.repository.findAll();
@@ -18,11 +20,21 @@ export class EmployeService {
     }
 
     async create(data: CreateEmployeDTO) {
+        const chantier = await this.chantierService.getById(data.chantierId);
+        if (!chantier) {
+            throw new Error('chantier introuvable');
+        }
         return this.repository.create(data);
 
     }
 
     async update(id: String, data: UpdateEmployeDTO) {
+        if (data.chantierId) {
+            const chantier = await this.chantierService.getById(data.chantierId);
+            if (!chantier) {
+                throw new Error('chantier introuvable');
+            }
+        }
         return this.repository.update(id, data);
     }
 

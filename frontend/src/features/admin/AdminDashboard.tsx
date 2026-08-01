@@ -49,7 +49,7 @@ export default function AdminDashboard() {
   }, []);
 
   const statCards = [
-    { label: 'Employés', value: stats.employes, color: 'text-emerald-400' },
+    { label: 'Employés', value: stats.employes, color: 'text-blue-400' },
     { label: 'Chantiers', value: stats.chantiers, color: 'text-blue-400' },
     { label: 'Pointages', value: stats.pointages, color: 'text-amber-400' },
     { label: 'Paie', value: stats.paie, color: 'text-purple-400' },
@@ -63,7 +63,7 @@ export default function AdminDashboard() {
     <div className="mx-auto flex w-full flex-col gap-6 lg:flex-row">
       <Sidebar />
       <main className="flex-1 lg:ml-80 lg:mr-8 rounded-[32px] border border-slate-200 bg-white p-8 shadow-xl md:p-10">
-          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-emerald-600">Scanner Badge</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-600">Scanner Badge</p>
           <h1 className="mt-4 text-3xl font-bold leading-tight text-slate-900 md:text-4xl">
             Tableau de bord administrateur
           </h1>

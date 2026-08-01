@@ -10,12 +10,12 @@ export class AuthService {
     }
 
     
-    async register(data:{ nom: String, email:String, password:String }){
+    async register(data:{ nom: string, email:string, password:string }){
 
         const existingUser = await this.repository.findUserByEmail(data.email);
 
         if(existingUser) {
-            throw new Error('utilisateur eiste deja')
+            throw new Error('utilisateur existe deja')
         }
 
         const hashPassword = await bcrypt.hash(data.password,10)
@@ -34,7 +34,7 @@ export class AuthService {
     }
 
 
-    async login(data:{ email:String, password: String}) {
+    async login(data:{ email:string, password: string}) {
 
         const user = await this.repository.findUserByEmail(data.email);
 
@@ -45,12 +45,12 @@ export class AuthService {
         const passwordValid = await bcrypt.compare(data.password, user.password);
 
         if(!passwordValid) {
-            throw new Error("mot de pass incorrect")
+            throw new Error("mot de passe incorrect")
         }
 
         const token = jwt.sign(
             {id: user.id, email: user.email},
-            process.env.JWT_SECRET,
+            process.env.JWT_SECRET!,
             {expiresIn: "1d" }
         );
 

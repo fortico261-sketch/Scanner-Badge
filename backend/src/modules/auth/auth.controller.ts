@@ -12,8 +12,10 @@ export class AuthController {
         try{
             const user = await this.service.register(req.body);
             res.status(200).json(user)
-        } catch (error) {
-            res.status(400).json({message: 'Erreur lors de la registration', error})
+        } catch (error: any) {
+            console.log("ERREUR REGISTER:", error)
+            res.status(400).json({message: 'Erreur lors de la registration', 
+                error: error.message||error})
         }
     }
 
@@ -28,7 +30,7 @@ export class AuthController {
 
         }catch (error : any) {
             console.log(error)
-            res.status(400).json({message: 'Erreur lors de la connexion', error})
+            res.status(400).json({message: 'Erreur lors de la connexion', error: error.message})
         }
     }
 }

@@ -1,3 +1,5 @@
+import client from '../../../shared/lib/client-http';
+
 type Credentials = { email: string; password: string };
 
 type AuthUser = {
@@ -6,39 +8,38 @@ type AuthUser = {
   email: string;
 };
 
-const ADMIN_CREDENTIALS = {
-  email: 'admin@example.com',
-  password: 'admin123',
+type RegisterData = {
+  nom: string;
+  email: string;
+  password: string;
 };
 
-export async function login(credentials: Credentials): Promise<AuthUser> {
-  const { email, password } = credentials;
+export async function login(
+  credentials: Credentials,
+  role: 'admin' | 'employee' = 'employee'
+): Promise<AuthUser> {
+  const response = await client.post('/auth/login', {
+    email: credentials.email,
+    password: credentials.password,
+  });
+  const token = response.token;
+  localStorage.setItem('auth_token', token);
+  localStorage.setItem('auth_role', role);
+  localStorage.setItem('auth_email', credentials.email);
+  return { token, role, email: credentials.email };
+}
 
-  if (email === ADMIN_CREDENTIALS.email && password === ADMIN_CREDENTIALS.password) {
-    const authUser = {
-      token: 'admin-token',
-      role: 'admin' as const,
-      email,
-    };
-    localStorage.setItem('auth_token', authUser.token);
-    localStorage.setItem('auth_role', authUser.role);
-    localStorage.setItem('auth_email', authUser.email);
-    return authUser;
-  }
-
-  if (email && password) {
-    const authUser = {
-      token: 'employee-token',
-      role: 'employee' as const,
-      email,
-    };
-    localStorage.setItem('auth_token', authUser.token);
-    localStorage.setItem('auth_role', authUser.role);
-    localStorage.setItem('auth_email', authUser.email);
-    return authUser;
-  }
-
-  throw new Error('Email ou mot de passe invalide');
+export async function register(data: RegisterData): Promise<AuthUser> {
+  const response = await client.post('/auth/register', {
+    nom: data.nom,
+    email: data.email,
+    password: data.password,
+  });
+  return {
+    token: '',
+    role: 'employee',
+    email: response.email,
+  };
 }
 
 export function logout() {
