@@ -11,12 +11,12 @@ export class EmployeService {
         return this.repository.findAll();
     }
 
-    async getByid(id : String) {
+    async getByid(id : string) {
         return this.repository.findById(id);
     }
 
-    async getBadgeId(bageId: String) {
-        return this.repository.findBadgeId(bageId);
+    async getBadgeId(uid: string) {
+        return this.repository.findBadgeId(uid);
     }
 
     async create(data: CreateEmployeDTO) {
@@ -28,9 +28,9 @@ export class EmployeService {
 
     }
 
-    async update(id: String, data: UpdateEmployeDTO) {
-        if (data.chantierId) {
-            const chantier = await this.chantierService.getById(data.chantierId);
+        async update(id: string, data: UpdateEmployeDTO) {
+            if (data.chantierId) {
+                const chantier = await this.chantierService.getById(data.chantierId);
             if (!chantier) {
                 throw new Error('chantier introuvable');
             }
@@ -38,7 +38,7 @@ export class EmployeService {
         return this.repository.update(id, data);
     }
 
-    async delete(id: String) {
+    async delete(id: string) {
         return this.repository.delete(id);
     }
 

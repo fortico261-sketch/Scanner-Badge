@@ -1,18 +1,18 @@
 export interface CreateEmployeDTO {
-    nom: String;
-    prenom: String;
-    badgeId: String;
+    nom: string;
+    prenom: string;
+    badgeId: string;
     tauxHoraire: number;
     volumeMensuelObligatoire: number;
-    chantierId: String;
+    chantierId: string;
 }
 
 export interface UpdateEmployeDTO {
-    nom?: String;
-    prenom?: String;
-    badgeId?: String;
+    nom?: string;
+    prenom?: string;
+    badgeId?: string;
     tauxHoraire?: number;
     volumeMensuelObligatoire?: number;
-    chantierId?: String;
+    chantierId?: string;
 
 }

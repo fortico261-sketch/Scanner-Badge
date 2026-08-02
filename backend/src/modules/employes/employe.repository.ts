@@ -12,11 +12,18 @@ export class EmployeRepository {
         })
     }
     
-    async findBadgeId(badgeId: string) {
-        return prisma.employe.findUnique({
-            where: { badgeId }
-        })
-    }
+    async findBadgeId(uid: string) {
+    return prisma.employe.findFirst({
+        where: {
+            badge: {
+                uid
+            }
+        },
+        include: {
+            badge: true
+        }
+    });
+}
 
     async create(data: any) {
         return prisma.employe.create({
