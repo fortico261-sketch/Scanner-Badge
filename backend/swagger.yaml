@@ -3,300 +3,763 @@ openapi: 3.0.0
 info:
   title: Scanner Badge API
   version: 1.0.0
-  description: API de gestion des employés et chantiers
+  description: API de gestion des employés, chantiers, badges RFID, pointages et géofencing
 
 servers:
+  - url: https://scanner-badge.onrender.com
+    description: Production Render
   - url: http://localhost:3000
+    description: Local
+
+tags:
+  - name: Auth
+  - name: Chantiers
+  - name: Employes
+  - name: Badges
+  - name: Geofencing
+  - name: Pointages
+
 
 components:
+
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
 
+
+  schemas:
+
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        nom:
+          type: string
+        email:
+          type: string
+
+
+    Chantier:
+      type: object
+      properties:
+        id:
+          type: string
+        nom:
+          type: string
+          example: Chantier Centre Ville
+        latitude:
+          type: number
+          example: -18.8792
+        longitude:
+          type: number
+          example: 47.5079
+        rayonToleranceM:
+          type: integer
+          example: 100
+
+
+    Employe:
+      type: object
+      properties:
+        id:
+          type: string
+        nom:
+          type: string
+          example: Rakoto
+        prenom:
+          type: string
+          example: Jean
+        tauxHoraire:
+          type: number
+          example: 5000
+        volumeMensuelObligatoire:
+          type: integer
+          example: 160
+        chantierId:
+          type: string
+
+
+    Badge:
+      type: object
+      properties:
+        id:
+          type: string
+        uid:
+          type: string
+          example: A1B2C3D4
+        actif:
+          type: boolean
+
+
+    Pointage:
+      type: object
+      properties:
+        id:
+          type: string
+        employeId:
+          type: string
+        chantierId:
+          type: string
+        status:
+          type: string
+          enum:
+            - ENTREE
+            - SORTIE
+        latitude:
+          type: number
+        longitude:
+          type: number
+        timestamp:
+          type: string
+          format: date-time
+
+
+
 paths:
 
+# ================= AUTH =================
+
   /auth/register:
+
     post:
       tags:
         - Auth
-      summary: Inscription
+
+      summary: Inscription utilisateur
+
       requestBody:
         required: true
+
         content:
+
           application/json:
+
             schema:
               type: object
+
+              required:
+                - nom
+                - email
+                - password
+
               properties:
+
+                nom:
+                  type: string
+                  example: Admin
+
                 email:
                   type: string
+                  example: admin@test.com
+
                 password:
                   type: string
+                  example: password123
+
+
       responses:
-        "200":
+
+        "201":
           description: Utilisateur créé
 
+
+
   /auth/login:
+
     post:
+
       tags:
         - Auth
-      summary: Connexion
+
+      summary: Connexion utilisateur
+
+
       requestBody:
+
         required: true
+
         content:
+
           application/json:
+
             schema:
+
               type: object
+
               properties:
+
                 email:
                   type: string
+
                 password:
                   type: string
+
+
       responses:
+
         "200":
           description: Connexion réussie
 
+
+
+# ================= CHANTIERS =================
+
+
   /chantiers:
+
+
     get:
+
       tags:
         - Chantiers
+
       summary: Liste des chantiers
+
       security:
         - bearerAuth: []
+
+
       responses:
+
         "200":
-          description: OK
+
+          description: Liste des chantiers
+
+          content:
+
+            application/json:
+
+              schema:
+
+                type: array
+
+                items:
+
+                  $ref: "#/components/schemas/Chantier"
+
+
 
     post:
+
+
       tags:
         - Chantiers
+
       summary: Créer un chantier
+
+
       security:
         - bearerAuth: []
+
+
+      requestBody:
+
+        required: true
+
+        content:
+
+          application/json:
+
+            schema:
+
+              $ref: "#/components/schemas/Chantier"
+
+
       responses:
+
         "201":
-          description: Créé
+
+          description: Chantier créé
+
+
+
 
   /chantiers/{id}:
+
+
     get:
+
       tags:
         - Chantiers
+
       summary: Obtenir un chantier
+
+
       security:
         - bearerAuth: []
+
+
       parameters:
+
         - name: id
+
           in: path
+
           required: true
+
           schema:
+
             type: string
+
+
       responses:
+
         "200":
-          description: OK
+
+          description: Chantier trouvé
+
+
+
 
     put:
+
       tags:
         - Chantiers
+
       summary: Modifier un chantier
+
+
       security:
         - bearerAuth: []
+
+
       parameters:
+
         - name: id
+
           in: path
+
           required: true
+
           schema:
+
             type: string
+
+
+      requestBody:
+
+        content:
+
+          application/json:
+
+            schema:
+
+              $ref: "#/components/schemas/Chantier"
+
+
       responses:
+
         "200":
-          description: Modifié
+
+          description: Chantier modifié
+
+
+
 
     delete:
+
       tags:
         - Chantiers
+
       summary: Supprimer un chantier
+
+
       security:
         - bearerAuth: []
+
+
       parameters:
+
         - name: id
+
           in: path
+
           required: true
+
           schema:
+
             type: string
+
+
       responses:
+
         "204":
+
           description: Supprimé
 
-  /employe:
+
+
+# ================= EMPLOYES =================
+
+
+  /employes:
+
+
     get:
+
       tags:
         - Employes
+
       summary: Liste des employés
+
+
       security:
+
         - bearerAuth: []
+
+
       responses:
+
         "200":
+
           description: OK
 
+
+
     post:
-      tags:
-        - Employes
-      summary: Créer un employé
-      security:
-        - bearerAuth: []
-      responses:
-        "201":
-          description: Créé
 
-  /employe/{id}:
-    get:
       tags:
-        - Employes
-      summary: Obtenir un employé
-      security:
-        - bearerAuth: []
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: OK
 
-    put:
-      tags:
         - Employes
-      summary: Modifier un employé
-      security:
-        - bearerAuth: []
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Modifié
 
-    delete:
-      tags:
-        - Employes
-      summary: Supprimer un employé
+
+      summary:
+
+        Créer un employé
+
+
       security:
+
         - bearerAuth: []
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Supprimé
-  /geofencing/check:
-    post:
-      tags:
-        - Geofencing
-      summary: Vérifier si un employé est dans la zone du chantier
+
+
+
       requestBody:
+
         required: true
+
         content:
+
           application/json:
+
             schema:
-              type: object
-              required:
-                - employeeLat
-                - employeeLon
-                - chantierLat
-                - chantierLon
-                - radius
-              properties:
-                employeeLat:
-                  type: number
-                  example: 48.8566
-                employeeLon:
-                  type: number
-                  example: 2.3522
-                chantierLat:
-                  type: number
-                  example: 48.8567
-                chantierLon:
-                  type: number
-                  example: 2.3523
-                radius:
-                  type: number
-                  example: 100
+
+              $ref: "#/components/schemas/Employe"
+
+
+
       responses:
+
+        "201":
+
+          description: Employé créé
+
+
+
+
+  /employes/{id}:
+
+
+    get:
+
+      tags:
+
+        - Employes
+
+
+      summary:
+
+        Obtenir un employé
+
+
+      security:
+
+        - bearerAuth: []
+
+
+
+      parameters:
+
+        - name: id
+
+          in: path
+
+          required: true
+
+          schema:
+
+            type: string
+
+
+
+      responses:
+
         "200":
-          description: Résultat du contrôle géographique
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  distance:
-                    type: number
-                    example: 13.3
-                  inside:
-                    type: boolean
-                    example: true
+
+          description: OK
+
+
+
+
+
+# ================= BADGES =================
+
 
   /badges/associate:
+
+
     post:
+
       tags:
+
         - Badges
-      summary: Associer un badge RFID à un employé
+
+
+      summary:
+
+        Associer un badge RFID
+
+
+
+      security:
+
+        - bearerAuth: []
+
+
+
       requestBody:
+
         required: true
+
+
         content:
+
           application/json:
+
+
             schema:
+
               type: object
+
               required:
+
                 - uid
+
                 - employeId
+
+
               properties:
+
                 uid:
+
                   type: string
+
                   example: A1B2C3D4
+
+
                 employeId:
+
                   type: string
-                  example: 8790f88e-38c9-40ea-b648-09eafe46d86e
+
+
+
+
       responses:
+
         "201":
-          description: Badge associé avec succès
-        "400":
-          description: Badge déjà associé ou employé possède déjà un badge
+
+          description: Badge associé
+
+
+
 
   /badges/{uid}/employe:
+
+
     get:
+
       tags:
+
         - Badges
-      summary: Récupérer l'employé associé à un badge RFID
+
+
+      summary:
+
+        Trouver l'employé par badge RFID
+
+
+
       parameters:
+
         - name: uid
+
           in: path
+
           required: true
-          description: UID du badge RFID
+
           schema:
+
             type: string
-            example: A1B2C3D4
+
+
+
       responses:
+
         "200":
+
           description: Employé trouvé
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: string
-                  nom:
-                    type: string
-                  prenom:
-                    type: string
-        "404":
-          description: Badge introuvable          
+
+
+
+# ================= GEOFENCING =================
+
+
+  /geofencing/check:
+
+
+    post:
+
+      tags:
+
+        - Geofencing
+
+
+      summary:
+
+        Vérifier la position dans une zone
+
+
+
+      requestBody:
+
+        required: true
+
+
+        content:
+
+          application/json:
+
+
+            schema:
+
+              type: object
+
+
+              properties:
+
+                employeeLat:
+
+                  type: number
+
+
+                employeeLon:
+
+                  type: number
+
+
+                chantierLat:
+
+                  type: number
+
+
+                chantierLon:
+
+                  type: number
+
+
+                radius:
+
+                  type: number
+
+
+
+      responses:
+
+        "200":
+
+          description:
+
+            Résultat du calcul
+
+
+
+# ================= POINTAGES =================
+
+
+  /pointages:
+
+
+    get:
+
+      tags:
+
+        - Pointages
+
+
+      summary:
+
+        Liste des pointages
+
+
+
+      security:
+
+        - bearerAuth: []
+
+
+
+      responses:
+
+        "200":
+
+          description:
+
+            Liste des pointages
+
+
+
+    post:
+
+      tags:
+
+        - Pointages
+
+
+      summary:
+
+        Enregistrer un pointage
+
+
+
+      security:
+
+        - bearerAuth: []
+
+
+
+      requestBody:
+
+        required: true
+
+
+        content:
+
+          application/json:
+
+
+            schema:
+
+              $ref: "#/components/schemas/Pointage"
+
+
+
+      responses:
+
+        "201":
+
+          description:
+
+            Pointage enregistré
