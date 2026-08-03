@@ -20,4 +20,8 @@ PostgreSQL est exécuté via Docker.
 
 # Swagger
 
-http://localhost:3000/api-docs/#/
+https://scanner-badge.onrender.com/api-docs
+
+# BackendURL
+
+https://scanner-badge.onrender.com
