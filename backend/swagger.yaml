@@ -394,6 +394,134 @@ paths:
 
 # ================= EMPLOYES =================
 
+  /employes:
+
+    get:
+      tags:
+        - Employes
+
+      summary: Liste des employés
+
+      security:
+        - bearerAuth: []
+
+      responses:
+        "200":
+          description: Liste des employés
+
+
+
+    post:
+      tags:
+        - Employes
+
+      summary: Créer un employé
+
+      security:
+        - bearerAuth: []
+
+      requestBody:
+        required: true
+
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Employe"
+
+      responses:
+        "201":
+          description: Employé créé
+
+
+
+  /employes/{id}:
+
+    get:
+      tags:
+        - Employes
+
+      summary: Obtenir un employé par ID
+
+      security:
+        - bearerAuth: []
+
+      parameters:
+        - name: id
+          in: path
+          required: true
+
+          schema:
+            type: string
+            format: uuid
+
+      responses:
+        "200":
+          description: Employé trouvé
+
+        "404":
+          description: Employé introuvable
+
+
+
+    put:
+      tags:
+        - Employes
+
+      summary: Modifier un employé
+
+      security:
+        - bearerAuth: []
+
+      parameters:
+        - name: id
+          in: path
+          required: true
+
+          schema:
+            type: string
+            format: uuid
+
+      requestBody:
+        required: true
+
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Employe"
+
+      responses:
+        "200":
+          description: Employé modifié
+
+        "404":
+          description: Employé introuvable
+
+
+
+    delete:
+      tags:
+        - Employes
+
+      summary: Supprimer un employé
+
+      security:
+        - bearerAuth: []
+
+      parameters:
+        - name: id
+          in: path
+          required: true
+
+          schema:
+            type: string
+            format: uuid
+
+      responses:
+        "204":
+          description: Employé supprimé
+
+        "404":
+          description: Employé introuvable
 
   /employes:
 
@@ -671,6 +799,323 @@ paths:
 
 # ================= POINTAGES =================
 
+  /pointages:
+
+    get:
+      tags:
+        - Pointages
+      summary: Récupérer tous les pointages
+
+      security:
+        - bearerAuth: []
+
+      responses:
+        "200":
+          description: Liste des pointages
+
+
+    post:
+      tags:
+        - Pointages
+      summary: Créer un pointage
+
+      security:
+        - bearerAuth: []
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Pointage"
+
+      responses:
+        "201":
+          description: Pointage créé
+
+
+
+  /pointages/{id}:
+
+    get:
+      tags:
+        - Pointages
+      summary: Récupérer un pointage par ID
+
+      security:
+        - bearerAuth: []
+
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+
+      responses:
+        "200":
+          description: Pointage trouvé
+
+        "404":
+          description: Pointage introuvable
+
+
+
+    put:
+      tags:
+        - Pointages
+      summary: Modifier un pointage
+
+      security:
+        - bearerAuth: []
+
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Pointage"
+
+      responses:
+        "200":
+          description: Pointage modifié
+
+        "404":
+          description: Pointage introuvable
+
+
+
+    delete:
+      tags:
+        - Pointages
+      summary: Supprimer un pointage
+
+      security:
+        - bearerAuth: []
+
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+
+      responses:
+        "204":
+          description: Pointage supprimé
+  /pointages:
+
+    get:
+      tags:
+        - Pointages
+      summary: Liste des pointages
+
+    post:
+      tags:
+        - Pointages
+      summary: Enregistrer un pointage
+
+
+  /pointages/{id}:
+
+    get:
+      tags:
+        - Pointages
+      summary: Obtenir un pointage par ID
+
+
+    put:
+      tags:
+        - Pointages
+      summary: Modifier un pointage
+
+
+    delete:
+      tags:
+        - Pointages
+      summary: Supprimer un pointage
+  /pointages:
+
+    get:
+      tags:
+        - Pointages
+      summary: Liste des pointages
+
+      security:
+        - bearerAuth: []
+
+      responses:
+        "200":
+          description: Liste des pointages
+
+
+    post:
+      tags:
+        - Pointages
+      summary: Enregistrer un pointage
+
+      security:
+        - bearerAuth: []
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Pointage"
+
+      responses:
+        "201":
+          description: Pointage enregistré
+
+
+
+  /pointages/{id}:
+
+    get:
+      tags:
+        - Pointages
+
+      summary: Obtenir un pointage par ID
+
+      security:
+        - bearerAuth: []
+
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+
+      responses:
+        "200":
+          description: Pointage trouvé
+
+        "404":
+          description: Pointage introuvable
+
+
+
+    put:
+      tags:
+        - Pointages
+
+      summary: Modifier un pointage
+
+      security:
+        - bearerAuth: []
+
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Pointage"
+
+      responses:
+        "200":
+          description: Pointage modifié
+
+        "404":
+          description: Pointage introuvable
+
+
+
+    delete:
+      tags:
+        - Pointages
+
+      summary: Supprimer un pointage
+
+      security:
+        - bearerAuth: []
+
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+
+      responses:
+        "204":
+          description: Pointage supprimé
+  /pointages: 
+    get:  ...
+
+    post: ...
+
+
+  /pointages/{id}:
+
+    put:
+
+      tags:  - Pointages
+
+      summary: Modifier un pointage
+
+      security:
+        - bearerAuth: []
+
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                latitude:
+                  type: number
+                  example: -18.8800
+
+                longitude:
+                  type: number
+                  example: 47.5085
+
+                satellites:
+                  type: integer
+                  example: 12
+
+                alertHorsZone:
+                  type: boolean
+                  example: false
+
+                status:
+                  type: string
+                  enum:
+                    - ENTREE
+                    - SORTIE
+                  example: SORTIE
+
+      responses:
+        "200":
+          description: Pointage modifié avec succès
+
+        "404":
+          description: Pointage introuvable
 
   /pointages:
 
