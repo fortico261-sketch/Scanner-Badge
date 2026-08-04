@@ -1,102 +1,74 @@
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
 
 model User {
-
-  id String @id @default(uuid())
-
-  nom String
-
-  email String @unique
-
-  password String
-
+  id        String   @id @default(uuid())
+  nom       String
+  email     String   @unique
+  password  String
   createdAt DateTime @default(now())
 
   @@map("users")
 }
 
-
 model Chantier {
-
-  id String @id @default(uuid())
-  nom String
-  latitude Float
-  longitude Float
-  rayonToleranceM Int 
-
-  createdAt DateTime @default(now())
-  updateAt DateTime @updatedAt
-
-  employes  Employe[]
-  pointages  Pointage[]
+  id              String     @id @default(uuid())
+  nom             String
+  latitude        Float
+  longitude       Float
+  rayonToleranceM Int
+  createdAt       DateTime   @default(now())
+  updateAt        DateTime   @updatedAt
+  employes        Employe[]
+  pointages       Pointage[]
 
   @@map("chantier")
-
 }
 
 model Employe {
-
-  id String @id @default(uuid())
-  nom String
-  prenom String
-
-  tauxHoraire Decimal @db.Decimal(10,2)
+  id                       String     @id @default(uuid())
+  nom                      String
+  prenom                   String
+  tauxHoraire              Decimal    @db.Decimal(10, 2)
   volumeMensuelObligatoire Int
-
-  chantierId String
-  chantier  Chantier @relation(fields: [chantierId], references: [id])
-
-  badge Badge?
-
-  pointages  Pointage[]
+  chantierId               String
+  badge                    Badge?
+  chantier                 Chantier   @relation(fields: [chantierId], references: [id])
+  pointages                Pointage[]
 
   @@map("employes")
-
 }
 
 model Badge {
+  id        String   @id @default(uuid())
+  uid       String   @unique
+  actif     Boolean  @default(true)
+  employeId String   @unique
+  createdAt DateTime @default(now())
+  employe   Employe  @relation(fields: [employeId], references: [id])
 
-  id String @id @default(uuid())
-
-  //fourni par le RFID
-  uid String  @unique
-  
-  actif Boolean @default(true)
-
-  employeId String @unique
-  employe Employe @relation(fields: [employeId], references: [id])
-
-  createdAt DateTime @default(now()) 
-   @@map("badges")
-
+  @@map("badges")
 }
 
 model Pointage {
-
-  id String @id @default(uuid())
-
-  employeId String
-  chantierId String 
-
-  employe Employe @relation(fields: [employeId], references: [id])
-  chantier Chantier @relation(fields: [chantierId], references: [id])
-
+  id            String         @id @default(uuid())
+  employeId     String
+  chantierId    String
   latitude      Float?
   longitude     Float?
   satellites    Float?
   alertHorsZone Boolean
-
-  status StatutPointage
-  timestamp DateTime @default(now())
+  status        StatutPointage
+  timestamp     DateTime       @default(now())
+  chantier      Chantier       @relation(fields: [chantierId], references: [id])
+  employe       Employe        @relation(fields: [employeId], references: [id])
 
   @@map("pointage")
 }

@@ -7,6 +7,7 @@ import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
 import geoRoute from "./modules/geofencing/grofencing.route";
 import badgeRoute from "./modules/badge/badge.route";
+import pointageRoutes from "./modules/pointages/pointage.route"
 
 const swaggerDocument = YAML.load("./swagger.yaml");
 
@@ -22,5 +23,6 @@ app.use("/chantiers", chantiersRoutes);
 app.use("/employes", employeRoutes);
 app.use("/geofencing", geoRoute);
 app.use("/badges", badgeRoute);
+app.use("/pointages", pointageRoutes);
 
 export default app;

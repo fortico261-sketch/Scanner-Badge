@@ -1,4 +1,4 @@
-ackend du projet Scanner Badge.
+backend du projet Scanner Badge.
 
 ## Stack
 

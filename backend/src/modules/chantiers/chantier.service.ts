@@ -22,7 +22,6 @@ export class ChantiersService {
         return this.repository.update(id, data);
     }
 
-
     async delete(id: string) {
         return this.repository.delete(id);
     }

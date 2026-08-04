@@ -421,15 +421,10 @@ paths:
 
     post:
 
-      tags:
-
-        - Employes
+      tags: Employes
 
 
-      summary:
-
-        Créer un employé
-
+      summary: Créer un employé
 
       security:
 
@@ -465,14 +460,10 @@ paths:
 
     get:
 
-      tags:
-
-        - Employes
+      tags: - Employes
 
 
-      summary:
-
-        Obtenir un employé
+      summary: Obtenir un employé
 
 
       security:
@@ -518,9 +509,7 @@ paths:
         - Badges
 
 
-      summary:
-
-        Associer un badge RFID
+      summary: Associer un badge RFID
 
 
 
@@ -586,9 +575,7 @@ paths:
         - Badges
 
 
-      summary:
-
-        Trouver l'employé par badge RFID
+      summary:  Trouver l'employé par badge RFID
 
 
 
@@ -627,9 +614,7 @@ paths:
         - Geofencing
 
 
-      summary:
-
-        Vérifier la position dans une zone
+      summary: Vérifier la position dans une zone
 
 
 
@@ -680,9 +665,7 @@ paths:
 
         "200":
 
-          description:
-
-            Résultat du calcul
+          description:  Résultat du calcul
 
 
 
@@ -694,14 +677,10 @@ paths:
 
     get:
 
-      tags:
-
-        - Pointages
+      tags: - Pointages
 
 
-      summary:
-
-        Liste des pointages
+      summary: Liste des pointages
 
 
 
@@ -715,22 +694,16 @@ paths:
 
         "200":
 
-          description:
-
-            Liste des pointages
+          description: Liste des pointages
 
 
 
     post:
 
-      tags:
-
-        - Pointages
+      tags: - Pointages
 
 
-      summary:
-
-        Enregistrer un pointage
+      summary: Enregistrer un pointage
 
 
 
@@ -760,6 +733,4 @@ paths:
 
         "201":
 
-          description:
-
-            Pointage enregistré
+          description:  Pointage enregistré
