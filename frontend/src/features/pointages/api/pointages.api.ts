@@ -1,13 +1,5 @@
 import client from '../../../shared/lib/client-http';
-
-export type Pointage = {
-  id?: string | number;
-  employeId: string | number;
-  chantierId: string | number;
-  date: string;
-  heureEntree: string;
-  heureSortie?: string;
-};
+import { Pointage } from '../types';
 
 export const pointagesApi = {
   list: async (): Promise<Pointage[]> => {

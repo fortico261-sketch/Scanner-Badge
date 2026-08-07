@@ -5,6 +5,9 @@ export type Employee = {
 	nom: string;
 	prenom: string;
 	badgeId: string;
+	badge?: {
+		uid: string;
+	} | null;
 	tauxHoraire: number;
 	volumeMensuelObligatoire: number;
 	chantierId: string;

@@ -1,9 +1,8 @@
 import React from 'react';
-import Sidebar from '../../../shared/components/Sidebar';
-import usePointages from '../hooks/usePointages';
+import PointagesDashboard from './PointagesDashboard';
 
 export default function ListePointages() {
-	const { pointages, loading, error } = usePointages();
+  return <PointagesDashboard />;
 
 	return (
 		<div className="min-h-screen bg-[#eef2ff] px-4 py-6 text-slate-900 md:px-6 lg:px-8">

@@ -2,11 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const adminLinks = [
-  { to: '/employes', label: 'Employé'},
-  { to: '/chantiers', label: 'Chantier'},
-  { to: '/pointages', label: 'Pointage'},
-  { to: '/paie', label: 'Paie'},
-  { to: '/conges', label: 'Congés'},
+  { to: '/chantiers', label: 'Chantiers' },
+  { to: '/employes', label: 'Employés' },
+  { to: '/badges', label: 'Badges' },
+  { to: '/pointages', label: 'Pointages' },
+  { to: '/conges', label: 'Congés' },
+  { to: '/paie', label: 'Paies' },
 ];
 
 export default function Sidebar() {

@@ -109,7 +109,7 @@ export default function TableauEmployes() {
 										<tr>
 											<th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">Nom</th>
 											<th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">Prénom</th>
-											<th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">Badge ID</th>
+											<th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">Badge UID</th>
 											<th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">Taux Horaire</th>
 											<th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">Volume Mensuel</th>
 											<th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">Nom Chantier</th>
@@ -127,7 +127,7 @@ export default function TableauEmployes() {
 											<tr key={String(e.id)} className="hover:bg-slate-50">
 												<td className="px-4 py-3 text-sm text-slate-700">{e.nom}</td>
 												<td className="px-4 py-3 text-sm text-slate-700">{e.prenom}</td>
-												<td className="px-4 py-3 text-sm text-slate-500">{e.badgeId || '—'}</td>
+												<td className="px-4 py-3 text-sm text-slate-500">{e.badge?.uid || e.badgeId || '—'}</td>
 												<td className="px-4 py-3 text-sm text-slate-500">{e.tauxHoraire ?? '—'}</td>
 												<td className="px-4 py-3 text-sm text-slate-500">{e.volumeMensuelObligatoire ?? '—'}</td>
 												<td className="px-4 py-3 text-sm text-slate-500">{chantierMap[e.chantierId] || e.chantierId || '—'}</td>

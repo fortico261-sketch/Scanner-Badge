@@ -19,16 +19,26 @@ export default function usePointages() {
 		}
 	}
 
-	async function create(pointage: Pointage) {
+	async function create(pointage: Pointage, metadata?: Partial<Pick<Pointage, 'employe' | 'chantier'>>) {
 		const res = await pointagesApi.create(pointage);
-		setPointages(prev => [...prev, res]);
-		return res;
+		const enriched = {
+			...res,
+			employe: metadata?.employe ?? res.employe,
+			chantier: metadata?.chantier ?? res.chantier,
+		};
+		setPointages(prev => [...prev, enriched]);
+		return enriched;
 	}
 
-	async function update(id: string | number, pointage: Pointage) {
+	async function update(id: string | number, pointage: Pointage, metadata?: Partial<Pick<Pointage, 'employe' | 'chantier'>>) {
 		const res = await pointagesApi.update(id, pointage);
-		setPointages(prev => prev.map(p => (p.id === id ? res : p)));
-		return res;
+		const enriched = {
+			...res,
+			employe: metadata?.employe ?? res.employe,
+			chantier: metadata?.chantier ?? res.chantier,
+		};
+		setPointages(prev => prev.map(p => (p.id === id ? enriched : p)));
+		return enriched;
 	}
 
 	async function remove(id: string | number) {

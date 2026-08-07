@@ -52,17 +52,7 @@ export default function Home() {
               <p className="text-sm text-slate-500">Contrôle horaire fiable</p>
             </div>
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-              <p className="text-2xl">💰</p>
-              <p className="mt-2 font-semibold text-slate-900">Paie</p>
-              <p className="text-sm text-slate-500">Calcul et consultation</p>
-            </div>
-            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-              <p className="text-2xl">📅</p>
-              <p className="mt-2 font-semibold text-slate-900">Congés</p>
-              <p className="text-sm text-slate-500">Demandes et validation</p>
-            </div>
-            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-              <p className="text-2xl">🛡️</p>
+              <p className="text-2xl">️</p>
               <p className="mt-2 font-semibold text-slate-900">Sécurité</p>
               <p className="text-sm text-slate-500">Accès protégé et traçable</p>
             </div>
