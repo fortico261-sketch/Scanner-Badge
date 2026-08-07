@@ -3,23 +3,23 @@ export interface CreatePointageDTO {
     employeId: string;
     chantierId: string;
 
-    lattitude: number;
-    longitude: number;
-    satellite: number;
+    latitude?: number;
+    longitude?: number;
+    satellites?: number;
 
-    alertZone: boolean;
-
-    status: "entrer" | "sortir";
+    status: "ENTREE" | "SORTIE";
 
 }
 
 export interface UpdatePointageDTO {
 
-    lattitude: number;
-    longitude: number;
-    satellite: number;
+    latitude?: number;
+    longitude?: number;
+    satellites?: number;
 
-    alertZone: boolean;
+    status: "ENTREE" | "SORTIE";
+}
 
-    status: "entrer" | "sortir";
+export interface CreatePointageData extends CreatePointageDTO {
+    alertHorsZone: boolean;
 }

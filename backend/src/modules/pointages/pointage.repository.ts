@@ -1,5 +1,5 @@
 import { prisma } from "../../database/prisma.service"
-import { CreatePointageDTO, UpdatePointageDTO } from "./pointage.dto"
+import { CreatePointageData, CreatePointageDTO, UpdatePointageDTO } from "./pointage.dto"
 
 export class PointageRepository {
 
@@ -15,6 +15,15 @@ export class PointageRepository {
         });
     }
 
+    async findLastByEmploye(employeId: string) {
+        return prisma.pointage.findFirst({
+            where: { employeId },
+            orderBy: {
+                timestamp: "desc"
+            }
+        })
+    }
+
     async findById(id: string) {
         return prisma.pointage.findUnique({
             where: { id },
@@ -25,16 +34,26 @@ export class PointageRepository {
         })
     }
 
-    async create(data: CreatePointageDTO) {
+    
+    async create(data: CreatePointageData) {
         return prisma.pointage.create({
-            data
+            data,
+            include: {
+                employe: true,
+                chantier: true
+
+            }
         })
     }
 
     async  update(id: string, data: UpdatePointageDTO) {
         return prisma.pointage.update({
             where: { id },
-            data
+            data,
+            include: {
+              employe: true,
+              chantier: true
+            }
         })
 
     }
@@ -45,23 +64,28 @@ export class PointageRepository {
         })
     }
 
-    async findWithFilters(employeId?: string, dateDebut?: string, dateFin?: string) {
-        return prisma.pointage.findMany({
-            where: {
-                ...(employeId && { employeId }),
-                ...(dateDebut && dateFin && { timestamp: { gte: new Date(dateDebut), lte: new Date(dateFin)}}),
-                
-            },
-            
-            include: {
-                employe: true,
-                chantier: true
-            },
+   async findWithFilters(employeId?: string, dateDebut?: string, dateFin?: string) {
 
-            orderBy: {
-                timestamp: 'desc'
+    return prisma.pointage.findMany({
+        where: {
+            ...(employeId && { employeId }),
+
+            ...(dateDebut || dateFin) && { timestamp: {
+                    ...(dateDebut && { gte: new Date(dateDebut) }),
+                    ...(dateFin && {lte: new Date(dateFin)})
+                }
             }
-        })
-    }
+        },
+
+        include: {
+            employe: true,
+            chantier: true
+        },
+
+        orderBy: {
+            timestamp: 'desc'
+        }
+    })
+}
 
 }

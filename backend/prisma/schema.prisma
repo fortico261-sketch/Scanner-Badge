@@ -38,8 +38,10 @@ model Employe {
   prenom                   String
   tauxHoraire              Decimal    @db.Decimal(10, 2)
   volumeMensuelObligatoire Int
+ 
   chantierId               String
   badge                    Badge?
+  
   chantier                 Chantier   @relation(fields: [chantierId], references: [id])
   pointages                Pointage[]
 
