@@ -23,7 +23,7 @@ export class EmployeController {
         try {
 
             const id = req.params.id as string;
-            const employe = await this.service.getByid(id);
+            const employe = await this.service.getById(id);
 
             if(!employe) {
 
