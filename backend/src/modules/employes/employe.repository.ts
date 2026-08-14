@@ -20,8 +20,7 @@ export class EmployeRepository {
     }
     
     async findBadgeId(uid: string) {
-    // Prisma schema stores the foreign key on Badge (employeId),
-    // so query the Badge by uid and return its related employe.
+    
     const badge = await prisma.badge.findUnique({
         where: { uid },
         include: { employe: true }
@@ -31,13 +30,11 @@ export class EmployeRepository {
 }
 
     async create(data: any) {
-        // do not pass badgeId directly (Badge relation is stored on Badge side)
         const { badgeId, ...rest } = data;
 
         const employe = await prisma.employe.create({ data: rest });
 
         if (badgeId) {
-            // badgeId coming from client is the badge uid
             const badge = await prisma.badge.findUnique({ where: { uid: badgeId } });
             if (badge) {
                 await prisma.badge.update({ where: { id: badge.id }, data: { employeId: employe.id } });
@@ -56,12 +53,9 @@ export class EmployeRepository {
         const employe = await prisma.employe.update({ where: { id }, data: rest });
 
         if (badgeId !== undefined) {
-            // If badgeId is null/empty, unlink previous badge(s). Otherwise link by uid.
             if (!badgeId) {
-                // unlink any badge that references this employe
                 await prisma.badge.updateMany({ where: { employeId: id }, data: { employeId: null } as any });
             } else {
-                // find the badge by uid and set its employeId to this employe
                 const badge = await prisma.badge.findUnique({ where: { uid: badgeId } });
                 if (badge) {
                     await prisma.badge.update({ where: { id: badge.id }, data: { employeId: employe.id } });
