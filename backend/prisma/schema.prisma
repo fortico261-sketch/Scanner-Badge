@@ -38,14 +38,27 @@ model Employe {
   prenom                   String
   tauxHoraire              Decimal    @db.Decimal(10, 2)
   volumeMensuelObligatoire Int
- 
   chantierId               String
   badge                    Badge?
-  
   chantier                 Chantier   @relation(fields: [chantierId], references: [id])
   pointages                Pointage[]
+  conges                   Conge[]
 
   @@map("employes")
+}
+
+model Conge {
+  id String @id @default(uuid())
+
+  employeId String
+  employe   Employe @relation(fields: [employeId], references: [id])
+
+  dateDebut DateTime
+  dateFin   DateTime
+
+  createdAt DateTime @default(now())
+
+  @@map("conges")
 }
 
 model Badge {

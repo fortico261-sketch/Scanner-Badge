@@ -8,6 +8,7 @@ import YAML from "yamljs";
 import geoRoute from "./modules/geofencing/grofencing.route";
 import badgeRoute from "./modules/badge/badge.route";
 import pointageRoutes from "./modules/pointages/pointage.route"
+import congeRoutes from  "./modules/conges/conges.route"
 
 const swaggerDocument = YAML.load("./swagger.yaml");
 
@@ -24,5 +25,9 @@ app.use("/employes", employeRoutes);
 app.use("/geofencing", geoRoute);
 app.use("/badges", badgeRoute);
 app.use("/pointages", pointageRoutes);
+app.use("/conges", congeRoutes )
+app.get("/test", (req, res) => {
+    res.json({ message: "API fonctionne" });
+});
 
 export default app;
