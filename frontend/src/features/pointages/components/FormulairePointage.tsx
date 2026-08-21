@@ -9,6 +9,21 @@ type Props = {
   onCancel?: () => void;
 };
 
+function calculateDistanceMeters(lat1: number, lon1: number, lat2: number, lon2: number) {
+  const earthRadius = 6371000;
+  const toRadians = (value: number) => (value * Math.PI) / 180;
+
+  const dLat = toRadians(lat2 - lat1);
+  const dLon = toRadians(lon2 - lon1);
+
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) * Math.sin(dLon / 2) ** 2;
+
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return earthRadius * c;
+}
+
 export default function FormulairePointage({ edit, onSubmit, onCancel }: Props) {
   const { employes } = useEmployes();
   const { chantiers } = useChantiers();
@@ -30,6 +45,17 @@ export default function FormulairePointage({ edit, onSubmit, onCancel }: Props) 
     [chantiers, chantierId]
   );
 
+  const computedAlertHorsZone = useMemo(() => {
+    if (!selectedChantier) return false;
+    const lat = Number(latitude);
+    const lon = Number(longitude);
+
+    if (!Number.isFinite(lat) || !Number.isFinite(lon)) return false;
+
+    const distance = calculateDistanceMeters(lat, lon, selectedChantier.latitude, selectedChantier.longitude);
+    return distance > selectedChantier.rayonToleranceM;
+  }, [latitude, longitude, selectedChantier]);
+
   useEffect(() => {
     if (edit) {
       setEmployeId(String(edit.employeId || ''));
@@ -50,6 +76,10 @@ export default function FormulairePointage({ edit, onSubmit, onCancel }: Props) 
     }
   }, [edit]);
 
+  useEffect(() => {
+    setAlertHorsZone(computedAlertHorsZone);
+  }, [computedAlertHorsZone]);
+
   function handleEmployeChange(value: string) {
     setEmployeId(value);
     const employe = employes.find((e) => String(e.id) === value);
@@ -63,6 +93,13 @@ export default function FormulairePointage({ edit, onSubmit, onCancel }: Props) 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
 
+    if (computedAlertHorsZone) {
+      setAlertHorsZone(true);
+      return;
+    }
+
+    const finalAlertHorsZone = computedAlertHorsZone || alertHorsZone;
+
     onSubmit?.({
       ...(edit || {}),
       employeId,
@@ -70,7 +107,7 @@ export default function FormulairePointage({ edit, onSubmit, onCancel }: Props) 
       latitude: parseFloat(latitude) || 0,
       longitude: parseFloat(longitude) || 0,
       satellites: parseInt(satellites, 10) || 0,
-      alertHorsZone,
+      alertHorsZone: finalAlertHorsZone,
       status,
     });
   }
@@ -160,12 +197,18 @@ export default function FormulairePointage({ edit, onSubmit, onCancel }: Props) 
           <input
             type="checkbox"
             checked={alertHorsZone}
-            onChange={(e) => setAlertHorsZone(e.target.checked)}
-            className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+            disabled
+            className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-80"
           />
           Alert hors zone
         </label>
       </div>
+
+      {selectedChantier && latitude && longitude && computedAlertHorsZone ? (
+        <div className="rounded-xl border border-rose-300 bg-rose-50 px-3 py-2 text-sm text-rose-700">
+          Position hors zone : la distance dépasse le rayon de tolérance du chantier.
+        </div>
+      ) : null}
 
       <div className="flex flex-wrap gap-3 pt-3">
         {onCancel ? (

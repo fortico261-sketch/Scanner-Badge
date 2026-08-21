@@ -44,10 +44,12 @@ export class EmployeController {
         try {
 
             const data : CreateEmployeDTO = req.body;
-            const employeExiste = await this.service.getBadgeId(data.badgeId)
-
-            if (employeExiste) {
-                return res.status(409).json("badgeId existe")
+            // badgeId is optional from the client (frontend may not send it)
+            if (data.badgeId) {
+                const employeExiste = await this.service.getBadgeId(data.badgeId);
+                if (employeExiste) {
+                    return res.status(409).json("badgeId existe");
+                }
             }
             
             const employe = await this.service.create(data);

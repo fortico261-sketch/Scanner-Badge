@@ -65,6 +65,10 @@ export class PointageService {
            )
 
            alertHorsZone = !dansLaZone;
+
+           if (!dansLaZone) {
+               throw new Error('Pointage hors zone');
+           }
         }
 
         //verificationaffectation
