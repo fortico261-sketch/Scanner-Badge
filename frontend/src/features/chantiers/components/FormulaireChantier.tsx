@@ -54,11 +54,11 @@ export default function FormulaireChantier({ edit, onSubmit, onCancel }: Props) 
 				</div>
 				<div>
 					<label className="mb-1 block text-sm font-medium text-slate-200">Latitude</label>
-					<input required type="number" step="any" value={latitude} onChange={(e) => setLatitude(e.target.value)} placeholder="48.8566" className="w-full rounded-xl border border-white/10 bg-slate-950/40 px-3 py-2.5 text-white placeholder:text-slate-500 focus:border-emerald-400 focus:outline-none" />
+					<input required type="number" step="any" value={latitude} onChange={(e) => setLatitude(e.target.value)} placeholder="-18.7669" className="w-full rounded-xl border border-white/10 bg-slate-950/40 px-3 py-2.5 text-white placeholder:text-slate-500 focus:border-emerald-400 focus:outline-none" />
 				</div>
 				<div>
 					<label className="mb-1 block text-sm font-medium text-slate-200">Longitude</label>
-					<input required type="number" step="any" value={longitude} onChange={(e) => setLongitude(e.target.value)} placeholder="2.3522" className="w-full rounded-xl border border-white/10 bg-slate-950/40 px-3 py-2.5 text-white placeholder:text-slate-500 focus:border-emerald-400 focus:outline-none" />
+					<input required type="number" step="any" value={longitude} onChange={(e) => setLongitude(e.target.value)} placeholder="46.8691" className="w-full rounded-xl border border-white/10 bg-slate-950/40 px-3 py-2.5 text-white placeholder:text-slate-500 focus:border-emerald-400 focus:outline-none" />
 				</div>
 				<div>
 					<label className="mb-1 block text-sm font-medium text-slate-200">Rayon Tolérance (m)</label>

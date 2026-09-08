@@ -10,7 +10,6 @@ type Props = {
 export default function FormulaireEmploye({ edit, onSubmit, onCancel }: Props) {
 	const [nom, setNom] = useState('');
 	const [prenom, setPrenom] = useState('');
-	const [badgeId, setBadgeId] = useState('');
 	const [tauxHoraire, setTauxHoraire] = useState('');
 	const [volumeMensuelObligatoire, setVolumeMensuelObligatoire] = useState('');
 	const [chantierId, setChantierId] = useState('');
@@ -30,14 +29,12 @@ export default function FormulaireEmploye({ edit, onSubmit, onCancel }: Props) {
 		if (edit) {
 			setNom(edit.nom || '');
 			setPrenom(edit.prenom || '');
-			setBadgeId(edit.badgeId || '');
 			setTauxHoraire(edit.tauxHoraire ?? '');
 			setVolumeMensuelObligatoire(edit.volumeMensuelObligatoire ?? '');
 			setChantierId(edit.chantierId || '');
 		} else {
 			setNom('');
 			setPrenom('');
-			setBadgeId('');
 			setTauxHoraire('');
 			setVolumeMensuelObligatoire('');
 			setChantierId('');
@@ -50,7 +47,6 @@ export default function FormulaireEmploye({ edit, onSubmit, onCancel }: Props) {
 			...(edit || {}),
 			nom,
 			prenom,
-			badgeId,
 			tauxHoraire: parseFloat(tauxHoraire) || 0,
 			volumeMensuelObligatoire: parseFloat(volumeMensuelObligatoire) || 0,
 			chantierId,
@@ -76,10 +72,7 @@ export default function FormulaireEmploye({ edit, onSubmit, onCancel }: Props) {
 					<label className="mb-1 block text-sm font-medium text-slate-200">Prénom</label>
 					<input required value={prenom} onChange={e => setPrenom(e.target.value)} placeholder="Alice" className="w-full rounded-xl border border-white/10 bg-slate-950/40 px-3 py-2.5 text-white placeholder:text-slate-500 focus:border-emerald-400 focus:outline-none" />
 				</div>
-				<div>
-					<label className="mb-1 block text-sm font-medium text-slate-200">Badge ID</label>
-					<input required value={badgeId} onChange={e => setBadgeId(e.target.value)} placeholder="BADGE-001" className="w-full rounded-xl border border-white/10 bg-slate-950/40 px-3 py-2.5 text-white placeholder:text-slate-500 focus:border-emerald-400 focus:outline-none" />
-				</div>
+				{/* Badge ID removed from form as requested */}
 				<div>
 					<label className="mb-1 block text-sm font-medium text-slate-200">Taux Horaire</label>
 					<input required type="number" step="0.01" value={tauxHoraire} onChange={e => setTauxHoraire(e.target.value)} placeholder="15.50" className="w-full rounded-xl border border-white/10 bg-slate-950/40 px-3 py-2.5 text-white placeholder:text-slate-500 focus:border-emerald-400 focus:outline-none" />

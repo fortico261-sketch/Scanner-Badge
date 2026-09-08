@@ -3,6 +3,7 @@ import FenetreModale from '../../../shared/components/FenetreModale';
 import FormulaireChantier from './FormulaireChantier';
 import Sidebar from '../../../shared/components/Sidebar';
 import useChantiers from '../hooks/useChantiers';
+import CarteChantiers from './CarteChantiers';
 
 export default function TableauChantiers() {
 	const { chantiers, loading, error, create, update, remove } = useChantiers();
@@ -124,10 +125,26 @@ export default function TableauChantiers() {
 							</div>
 						)}
 					</div>
+
+					<div className="grid gap-4 xl:grid-cols-[1fr_420px]">
+						<div className="rounded-[24px] border border-slate-200 bg-white p-4 shadow-xl">
+							<div className="flex items-center justify-between gap-3">
+								<div>
+									<h3 className="text-lg font-semibold text-slate-900">Détails du chantier</h3>
+									<p className="text-sm text-slate-500">Sélectionnez un chantier pour voir son emplacement et sa zone.</p>
+								</div>
+							</div>
+							<div className="mt-4 space-y-3 text-sm text-slate-700">
+								<p>Choisissez un chantier dans le tableau pour le modifier ou consultez la carte à droite.</p>
+								<p className="font-medium">Le plan s'ajuste automatiquement selon les coordonnées enregistrées.</p>
+							</div>
+						</div>
+						<CarteChantiers chantiers={chantiers} />
+					</div>
 				</main>
 			</div>
 
-			<FenetreModale open={isModalOpen} onClose={closeModal} title={editing?.id ? 'Modifier un chantier' : 'Ajouter un chantier'}>
+			<FenetreModale open={isModalOpen} onClose={closeModal} title={editing ? 'Modifier un chantier' : 'Ajouter un chantier'}>
 				<FormulaireChantier edit={editing} onSubmit={addOrUpdateChantier} onCancel={closeModal} />
 			</FenetreModale>
 		</div>
